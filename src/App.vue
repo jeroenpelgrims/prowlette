@@ -38,6 +38,7 @@ function updateSorting(by: keyof SearchResult) {
 function doSearch(newQuery: string, newCategories: number[]) {
   query.value = newQuery;
   categories.value = newCategories;
+  sort.value = { column: "seeders", direction: "desc" };
 }
 </script>
 
