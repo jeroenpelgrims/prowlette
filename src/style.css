@@ -1,0 +1,5 @@
+@import "material-symbols";
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: cmyk --default;
+}
