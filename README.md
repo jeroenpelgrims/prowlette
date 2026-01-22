@@ -1,5 +1,18 @@
-# Vue 3 + TypeScript + Vite
+# Prowlette
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+A lightweight, user-friendly search interface for Prowlarr designed to make torrent searching accessible to non-technical users.
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+## ⚠️ Security Warning
+
+**This application exposes your Prowlarr API key and should only be shared with trusted individuals.** Anyone with access to this interface will have the ability to perform write actions on your Prowlarr instance.
+
+## About
+
+Prowlette provides a simplified web interface on top of Prowlarr's search functionality, removing the complexity of the main Prowlarr UI while maintaining essential search capabilities. This makes it easier for family members or friends to search for content without needing to navigate Prowlarr's technical interface.
+
+## Features
+
+- Clean, intuitive search interface
+- Direct integration with Prowlarr API
+- Simplified results display
+- No technical knowledge required
