@@ -21,26 +21,37 @@ export type SearchResult = {
 
 const rootKey = "useSearch";
 
-export function useSearch(query: MaybeRef<string | undefined>) {
-  const queryRef = toRef(query);
-  const enabled = computed(() => queryRef.value !== undefined);
+type UseSearchParams = {
+  query: MaybeRef<string | undefined>;
+  categories?: MaybeRef<number[]>;
+};
+
+export function useSearch(params: UseSearchParams) {
   const queryClient = useQueryClient();
   persistQueryClient({
     queryClient,
     persister: sessionStoragePersister,
   });
+  const query = toRef(params.query);
+  const enabled = computed(() => query.value !== undefined)
 
   return useQuery(
     queryOptions({
-      queryKey: [rootKey, queryRef] as const,
+      queryKey: [rootKey, params] as const,
       queryFn: async ({ queryKey, signal }) => {
-        const [, query] = queryKey;
-        const params = new URLSearchParams({ query: query ?? "" }).toString();
-        const response = await api.get<SearchResult[]>(`/search?${params}`, { signal });
+        const [, { query, categories }] = queryKey;
+
+        const queryParams = new URLSearchParams();
+        queryParams.set('query', query ?? "");
+        categories?.forEach(c => queryParams.append('categories', `${c}`))
+
+        const response = await api.get<SearchResult[]>(`/search?${queryParams.toString()}`, {
+          signal,
+        });
         return response.data;
       },
-      enabled,
       staleTime: hoursToMilliseconds(24),
+      enabled
     }),
   );
 }

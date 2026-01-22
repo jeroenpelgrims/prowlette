@@ -1,5 +1,7 @@
 <script setup lang="ts">
-defineProps<{ size: "xs" | "sm" | "md" | "lg" | "xl" }>();
+withDefaults(defineProps<{ size?: "xs" | "sm" | "md" | "lg" | "xl" }>(), {
+  size: "md",
+});
 </script>
 
 <template>

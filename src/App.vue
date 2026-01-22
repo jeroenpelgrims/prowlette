@@ -7,8 +7,10 @@ import SearchForm from "./components/SearchForm.vue";
 import type { SortBy } from "./util/table";
 
 const query = ref<string>();
+const categories = ref<number[]>([]);
 const sort = ref<SortBy>();
-const results = useSearch(query);
+const results = useSearch({ query, categories });
+
 const sortedResults = computed<SearchResult[]>(() => {
   const data = results.data.value ?? [];
   if (!sort.value) {
@@ -32,13 +34,19 @@ function updateSorting(by: keyof SearchResult) {
     };
   }
 }
+
+function doSearch(newQuery: string, newCategories: number[]) {
+  query.value = newQuery;
+  categories.value = newCategories;
+}
 </script>
 
 <template>
   <SearchForm
-    :loading="results.isLoading.value"
-    @submit="query = $event"
     class="m-4"
+    :loading="results.isLoading.value"
+    v-model:categories="categories"
+    @search="doSearch"
   />
   <template v-if="!results.isEnabled.value" />
   <div
