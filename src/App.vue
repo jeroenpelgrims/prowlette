@@ -43,23 +43,25 @@ function doSearch(newQuery: string, newCategories: number[]) {
 </script>
 
 <template>
-  <SearchForm
-    class="m-4"
-    :loading="results.isLoading.value"
-    v-model:categories="categories"
-    @search="doSearch"
-  />
-  <template v-if="!results.isEnabled.value" />
-  <div
-    v-else-if="results.isLoading.value"
-    class="w-full flex justify-center my-4"
-  >
-    <Loader size="xs" />
+  <div class="container mx-auto mt-4 grid gap-4">
+    <SearchForm
+      class="m-4"
+      :loading="results.isLoading.value"
+      v-model:categories="categories"
+      @search="doSearch"
+    />
+    <template v-if="!results.isEnabled.value" />
+    <div
+      v-else-if="results.isLoading.value"
+      class="w-full flex justify-center my-4"
+    >
+      <Loader size="xs" />
+    </div>
+    <ResultsTable
+      v-else
+      :results="sortedResults"
+      :sort="sort"
+      @sort="updateSorting($event)"
+    />
   </div>
-  <ResultsTable
-    v-else
-    :results="sortedResults"
-    :sort="sort"
-    @sort="updateSorting($event)"
-  />
 </template>
