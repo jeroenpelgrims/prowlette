@@ -1,11 +1,12 @@
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { removeOldestQuery } from "@tanstack/react-query-persist-client";
 import axios from "axios";
+import { config } from "../config";
 
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_PROWLARR_URL,
+  baseURL: config.VITE_PROWLARR_URL,
   headers: {
-    "X-Api-Key": import.meta.env.VITE_PROWLARR_API_KEY,
+    "X-Api-Key": config.VITE_PROWLARR_API_KEY,
   },
 });
 
